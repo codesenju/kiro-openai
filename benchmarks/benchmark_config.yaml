@@ -1,0 +1,38 @@
+api:
+  base_url: http://127.0.0.1:8000/v1
+  timeout_seconds: 300
+  max_retries: 0
+
+benchmark:
+  repetitions: 5
+  warmup_per_model: 1
+  random_seed: 20261111
+  request_max_tokens: 512
+  long_context_target_tokens: 4000
+  concurrency_levels: [1, 2, 5, 10]
+  concurrency_repetitions: 5
+  concurrency_model: claude-sonnet-5-5
+  stop_concurrency_on_failure: true
+  routing_aliases: [auto, claude-auto]
+  output_directory: results
+  chart_directory: ../reports/charts
+
+scenarios:
+  short:
+    prompt: "What is 2 + 2? Answer with only the number."
+    stream: false
+  medium:
+    prompt: "Explain Kubernetes networking in approximately 200 words."
+    stream: false
+  code_generation:
+    prompt: "Generate a production-ready Kubernetes Deployment manifest for nginx with three replicas, resource limits, health probes, and security context."
+    stream: false
+  reasoning:
+    prompt: "Compare Kubernetes Cilium eBPF networking with kube-proxy iptables mode. Explain performance, architecture, and operational trade-offs."
+    stream: false
+  long_context:
+    prompt: ""
+    stream: false
+  medium_streaming:
+    prompt: "Explain Kubernetes networking in approximately 200 words."
+    stream: true
